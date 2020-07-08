@@ -1,0 +1,14 @@
+version: '3.8'
+services:
+  nginx:
+    image: nginx:latest
+    container_name: my-web-server
+    volumes:
+      - ./nginx-files/nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx-files/40x.html:/usr/share/nginx/html/40x.html
+    ports:
+      - 8080:80
+
+  demo-app:
+    image: localhost:5000/demo-app:1.0.0
+    container_name: demo-app

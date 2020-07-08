@@ -1,0 +1,14 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: nodeport-demo-app
+spec:
+  type: NodePort
+  selector:
+    app: demo-app
+    type: backend
+  ports:
+    - name: http-nginx-nodeport
+      protocol: TCP
+      port: 80
+      nodePort: 30300

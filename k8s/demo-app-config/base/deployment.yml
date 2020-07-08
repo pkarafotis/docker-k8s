@@ -1,0 +1,35 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: demo-app
+spec:
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 0
+      maxUnavailable: 66%
+  selector:
+    matchLabels:
+      app: demo-app
+      type: backend
+  template:
+    metadata:
+      labels:
+        app: demo-app
+        type: backend
+    spec:
+      containers:
+        - name: nginx
+          image: nginx:latest
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - name: nginxconfiguration
+              mountPath: /usr/share/nginx/html/
+            - name: nginxconfigfile
+              mountPath: /etc/nginx/nginx.conf
+              subPath: nginx.conf
+        - name: demo-app
+          image: demo-app-image
+          imagePullPolicy: IfNotPresent
+

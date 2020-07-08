@@ -1,0 +1,27 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: demo-app
+spec:
+  template:
+    spec:
+      containers:
+        - name: demo-app
+          ports:
+            - containerPort: 8787
+          envFrom:
+            - configMapRef:
+                name: demo-app-config
+      volumes:
+        - name: nginxconfiguration
+          configMap:
+            name: demo-app-config
+            items:
+              - key: 40x.html
+                path: 40x.html
+        - name: nginxconfigfile
+          configMap:
+            name: demo-app-config
+            items:
+              - key: nginx.conf
+                path: nginx.conf

@@ -1,0 +1,35 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: demo-app-config
+data:
+  greetings.message: "This is welcome message from k8s config-map!"
+  nginx.conf: |+
+    events { }
+
+    http {
+
+    	server {
+    		listen         80;
+    		server_name    my-web-server;
+
+    	  location / {
+          proxy_pass http://localhost:8080;
+        }
+
+    		error_page 404 /40x.html;
+
+    		location = /40x.html {
+    			root /usr/share/nginx/html;
+    			internal;
+    		}
+    }
+    }
+  40x.html: |+
+    <html>
+    <head>
+    	<title>404</title>
+    <body>
+    <h2>Not found</h2>
+    </body>
+    </html>
