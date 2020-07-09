@@ -5,7 +5,8 @@ FROM openjdk:8-jdk-alpine
 COPY target/*.jar /app/demo-app.jar
 
 # documentation only
+EXPOSE 5005
 EXPOSE 8080
 
 # this will be executed every time the container is being brought-up
-ENTRYPOINT ["java","-jar","/app/demo-app.jar"]
+ENTRYPOINT ["java","-agentlib:jdwp=transport=dt_socket,address=8787,server=y,suspend=n", "-jar","/app/demo-app.jar"]

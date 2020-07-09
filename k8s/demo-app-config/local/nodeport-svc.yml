@@ -8,7 +8,11 @@ spec:
     app: demo-app
     type: backend
   ports:
-    - name: http-nginx-nodeport
+    - name: nodeport-demo-app-nginx
       protocol: TCP
       port: 80
-      nodePort: 30300
+      nodePort: 32000
+    - name: nodeport-demo-app-debug
+      protocol: TCP
+      port: 8787
+      nodePort: 32001

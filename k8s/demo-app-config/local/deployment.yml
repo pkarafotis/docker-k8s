@@ -8,7 +8,7 @@ spec:
       containers:
         - name: demo-app
           ports:
-            - containerPort: 8787
+            - containerPort: 8787 # expose it to enable debugging
           envFrom:
             - configMapRef:
                 name: demo-app-config
