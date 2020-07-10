@@ -62,3 +62,11 @@ docker run -d -p 8088:80 --name registry-ui -e REGISTRY_HOST=host.docker.interna
 ```
 http://localhost:8080
 ```
+
+## Multi-stage build
+Alternatively to building seperately the project and then build the image, docker supports multi-stage builds 
+in which Dockerfile typically has the build phase in which the project is built and then the packaging and execution
+phase in which the final image is created. Build phase is not included in the final image.
+```
+[demo-app] λ docker build -t localhost:5000/demo-app:1.0.0 -f Dockerfile_multistage .
+```  
