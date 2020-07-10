@@ -1,0 +1,21 @@
+########### STAGE 1 BUILD ###########
+FROM openjdk:8-jdk-alpine as build
+WORKDIR /workspace/app
+
+COPY mvnw .
+COPY .mvn .mvn
+COPY pom.xml .
+COPY src src
+
+RUN ./mvnw install -DskipTests
+
+########### STAGE 2 EXECUTE ###########
+FROM openjdk:8-jdk-alpine
+COPY --from=build /workspace/app/target/*.jar /app/demo-app.jar
+
+# documentation only
+EXPOSE 8080
+EXPOSE 8787
+
+# this will be executed every time the container is being brought-up
+ENTRYPOINT ["java","-agentlib:jdwp=transport=dt_socket,address=8787,server=y,suspend=n", "-jar","/app/demo-app.jar"]
