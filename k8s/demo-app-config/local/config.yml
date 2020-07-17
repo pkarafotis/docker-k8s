@@ -13,8 +13,8 @@ data:
     		listen         80;
     		server_name    my-web-server;
 
-    	  location / {
-          proxy_pass http://localhost:8080;
+    	  location /app/ {
+          proxy_pass http://localhost:8080/;
         }
 
     		error_page 404 /40x.html;
@@ -28,7 +28,7 @@ data:
   40x.html: |+
     <html>
     <head>
-    	<title>404</title>
+    	<title>404 from config-map!</title>
     <body>
     <h2>Not found</h2>
     </body>
